@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: solidserver
+  namespace: solidserver
+spec:
+  project: default
+  source:
+    repoURL: https://communitysolidserver.github.io/css-helm-chart/charts/
+    helm:
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: solidserver
