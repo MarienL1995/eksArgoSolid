@@ -1,13 +1,21 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: solidserver
-  namespace: solidserver
+  labels:
+    app: solidserver
 spec:
-  project: default
-  source:
-    repoURL: https://communitysolidserver.github.io/css-helm-chart/charts/
-    helm:
-  destination:
-    server: "https://kubernetes.default.svc"
-    namespace: solidserver
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solidserver
+  template:
+    metadata:
+      labels:
+        app: solidserver
+    spec:
+      containers:
+      - name: solidserver
+        image: solidproject/community-server:latest
+        ports:
+        - containerPort: 80
