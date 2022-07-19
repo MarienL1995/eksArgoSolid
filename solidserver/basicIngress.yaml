@@ -6,7 +6,8 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme : internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
+  labels:
+    app: solidserver  
 spec:
   rules:
   - host: argo.solidserver.cloud
@@ -19,3 +20,4 @@ spec:
               name: test-service
               port:
                 number: 80    
+
