@@ -1,21 +1,62 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: solidserver
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: solidserver
-  labels:
-    app: solidserver
+  namespace: solidserver
+  name: solidserver-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: solidserver
+      app.kubernetes.io/name: solidserver-deployment
+  replicas: 2
   template:
     metadata:
       labels:
-        app: solidserver
+        app.kubernetes.io/name: solidserver-deployment
     spec:
       containers:
-      - name: solidserver
-        image: solidproject/community-server:latest
+      - image: solidproject/community-server
+        imagePullPolicy: Always
+        name: solidserver-deployment
         ports:
-        - containerPort: 3000
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: solidserver
+  name: service-solidserver
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: solidserver-deployment
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: solidserver
+  name: ingress-solidserver
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: service-solidserver
+              port:
+                number: 80
