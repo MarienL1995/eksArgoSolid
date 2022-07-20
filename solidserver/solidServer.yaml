@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/name: solidserver-deployment
     spec:
       containers:
-      - image: solidproject/community-server
+      - image: solidproject/community-server:latest
         imagePullPolicy: Always
         name: solidserver-deployment
         ports:
