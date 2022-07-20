@@ -34,7 +34,7 @@ metadata:
 spec:
   ports:
     - port: 3000
-      targetPort: 3000
+      targetPort: 80
       protocol: TCP
   type: NodePort
   selector:
@@ -59,4 +59,4 @@ spec:
             service:
               name: service-solidserver
               port:
-                number: 3000
+                number: 80
