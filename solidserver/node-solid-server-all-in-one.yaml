@@ -1,0 +1,194 @@
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: solidserver
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server-claim0
+  name: server-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server-claim1
+  name: server-claim1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server-claim2
+  name: server-claim2
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server-claim3
+  name: server-claim3
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server
+  name: solidserver
+  namespace : solidserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: server
+      app.kubernetes.io/name: solidserver-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: server
+    spec:
+      containers:
+        - env:
+            - name: SOLID_MULTIUSER
+              value: "true"
+            - name: SOLID_SERVER_URI
+              value: https://solidserver.cloud
+            - name: SOLID_SSL_CERT
+              value: /opt/solid/certs/fullchain1.pem
+            - name: SOLID_SSL_KEY
+              value: /opt/solid/certs/privkey1.pem
+          image: nodesolidserver/node-solid-server:latest
+          name: solidserver-deployment
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /opt/solid/data
+              name: server-claim0
+            - mountPath: /opt/solid/.db
+              name: server-claim1
+            - mountPath: /opt/solid/config
+              name: server-claim2
+            - mountPath: /opt/solid/certs
+              name: server-claim3
+      restartPolicy: Always
+      volumes:
+        - name: server-claim0
+          persistentVolumeClaim:
+            claimName: server-claim0
+        - name: server-claim1
+          persistentVolumeClaim:
+            claimName: server-claim1
+        - name: server-claim2
+          persistentVolumeClaim:
+            claimName: server-claim2
+        - name: server-claim3
+          persistentVolumeClaim:
+            claimName: server-claim3
+status: {}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server
+  name: server
+  namespace: solidserver
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  type: NodePort    
+  selector:
+    io.kompose.service: server
+    app.kubernetes.io/name: solidserver-deployment
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: solidserver
+  name: ingress-solidserver
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: service-solidserver
+              port:
+                number: 80
+
+
