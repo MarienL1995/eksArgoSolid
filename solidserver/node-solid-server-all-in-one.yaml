@@ -86,7 +86,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    labels:
+    matchLabels:
       app.kubernetes.io/name: solidserver-deployment
   strategy:
     type: Recreate
