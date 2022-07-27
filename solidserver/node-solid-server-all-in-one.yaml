@@ -81,15 +81,12 @@ metadata:
     kompose.cmd: kompose convert
     kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
-  labels:
-    io.kompose.service: server
   name: solidserver
   namespace : solidserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: server
       app.kubernetes.io/name: solidserver-deployment
   strategy:
     type: Recreate
@@ -99,8 +96,6 @@ spec:
         kompose.cmd: kompose convert
         kompose.version: 1.26.1 (HEAD)
       creationTimestamp: null
-      labels:
-        io.kompose.service: server
     spec:
       containers:
         - env:
@@ -153,8 +148,6 @@ metadata:
     kompose.cmd: kompose convert
     kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
-  labels:
-    io.kompose.service: server
   name: server
   namespace: solidserver
 spec:
@@ -164,7 +157,6 @@ spec:
       protocol: TCP
   type: NodePort    
   selector:
-    io.kompose.service: server
     app.kubernetes.io/name: solidserver-deployment
 
 
