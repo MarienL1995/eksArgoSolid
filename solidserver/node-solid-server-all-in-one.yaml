@@ -175,10 +175,13 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
 spec:
   tls:
-  - secretName: solidserver-tls
+  - hosts:
+    - www.ordinasolid.cloud
+    secretName: solidserver-tls
   ingressClassName: alb
   rules:
-    - http:
+    - host: www.solidserver.cloud
+      http:
         paths:
         - path: /
           pathType: Prefix
