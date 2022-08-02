@@ -37,6 +37,8 @@ spec:
       containers:
         - image: nodesolidserver/node-solid-server:latest
           name: solidserver-deployment
+          command: ["--server-uri"]
+          args: ["ordinasolid.cloud"]
           imagePullPolicy: Always
           ports:
             - containerPort: 80
