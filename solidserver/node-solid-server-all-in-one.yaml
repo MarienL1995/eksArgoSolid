@@ -181,8 +181,7 @@ spec:
     secretName: solidserver-tls
   ingressClassName: alb
   rules:
-    - host: www.solidserver.cloud
-      http:
+    - http:
         paths:
         - path: /
           pathType: Prefix
