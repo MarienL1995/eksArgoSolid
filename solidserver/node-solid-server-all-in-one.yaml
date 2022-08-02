@@ -143,20 +143,6 @@ status: {}
 
 ---
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: shell-demo
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-  hostNetwork: true
-  dnsPolicy: Default
-
-
-
----
 
 apiVersion: v1
 kind: Service
@@ -187,10 +173,11 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn : arn:aws:acm:eu-west-1:930970667460:certificate/ba7dbb3d-0f07-4cf3-8dfb-24d8e2ae8572
 spec:
   tls:
   - hosts:
-    - www.ordinasolid.cloud
+    - ordinasolid.cloud
     secretName: solidserver-tls
   ingressClassName: alb
   rules:
