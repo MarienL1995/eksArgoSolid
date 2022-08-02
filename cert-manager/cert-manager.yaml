@@ -5232,14 +5232,7 @@ spec:
     spec:
       serviceAccountName: cert-manager
       securityContext:
-        runAsNonRoot: true
-      dnsConfig:
-        nameservers:
-          - ns-1146.awsdns-15.org.
-          - ns-879.awsdns-45.net.
-          - ns-402.awsdns-50.com.
-          - ns-1874.awsdns-42.co.uk.
-      dnsPolicy: None  
+        runAsNonRoot: true 
       containers:
         - name: cert-manager
           image: "quay.io/jetstack/cert-manager-controller:v1.9.1"
