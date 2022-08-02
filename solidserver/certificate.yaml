@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: solidserver-tls-certificate
+  name: solidserver-tls
   namespace: solidserver
 spec:
   dnsNames:
     - www.solidserver.cloud
-  secretName: solidserver-tls
+  secretName: solidserver-tls-certificate
   issuerRef:
     name: letsencrypt-cluster-issuer
     kind: ClusterIssuer
