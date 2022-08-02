@@ -23,7 +23,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: solidserver-deployment
   strategy:
-    type: Recreate
+    type: Replace
   template:
     metadata:
       annotations:
@@ -37,7 +37,7 @@ spec:
       containers:
         - image: nodesolidserver/node-solid-server:latest
           name: solidserver-deployment
-          command: ["--server-uri"]
+          command: ["solid --server-uri"]
           args: ["ordinasolid.cloud"]
           imagePullPolicy: Always
           ports:
