@@ -141,6 +141,23 @@ spec:
             claimName: server-claim3
 status: {}
 
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shell-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: shared-data
+      mountPath: /usr/share/nginx/html
+  hostNetwork: true
+  dnsPolicy: Default
+
+
 
 ---
 
@@ -193,16 +210,3 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: Pod
-metadata:
-  name: shell-demo
-spec:
-  containers:
-  - name: nginx
-    image: nginx
-    volumeMounts:
-    - name: shared-data
-      mountPath: /usr/share/nginx/html
-  hostNetwork: true
-  dnsPolicy: Default
