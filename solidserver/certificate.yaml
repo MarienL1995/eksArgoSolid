@@ -5,7 +5,7 @@ metadata:
   namespace: solidserver
 spec:
   dnsNames:
-    - solidserver.cloud
+    - www.solidserver.cloud
   secretName: solidserver-tls-certificate
   issuerRef:
     name: letsencrypt-cluster-issuer
