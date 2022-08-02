@@ -4,73 +4,7 @@ kind: Namespace
 metadata:
   name: solidserver
 
----
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: server-claim0
-  name: server-claim0
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: server-claim1
-  name: server-claim1
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: server-claim2
-  name: server-claim2
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: server-claim3
-  name: server-claim3
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
 
 ---
 
@@ -101,44 +35,13 @@ spec:
 
     spec:
       containers:
-        - env:
-            - name: SOLID_MULTIUSER
-              value: "true"
-            - name: SOLID_SERVER_URI
-              value: https://solidserver.cloud
-            - name: SOLID_SSL_CERT
-              value: /opt/solid/certs/fullchain1.pem
-            - name: SOLID_SSL_KEY
-              value: /opt/solid/certs/privkey1.pem
-          image: nodesolidserver/node-solid-server:latest
+        - image: nodesolidserver/node-solid-server:latest
           name: solidserver-deployment
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
           resources: {}
-          volumeMounts:
-            - mountPath: /opt/solid/data
-              name: server-claim0
-            - mountPath: /opt/solid/.db
-              name: server-claim1
-            - mountPath: /opt/solid/config
-              name: server-claim2
-            - mountPath: /opt/solid/certs
-              name: server-claim3
-      restartPolicy: Always
-      volumes:
-        - name: server-claim0
-          persistentVolumeClaim:
-            claimName: server-claim0
-        - name: server-claim1
-          persistentVolumeClaim:
-            claimName: server-claim1
-        - name: server-claim2
-          persistentVolumeClaim:
-            claimName: server-claim2
-        - name: server-claim3
-          persistentVolumeClaim:
-            claimName: server-claim3
+          
 status: {}
 
 ---
