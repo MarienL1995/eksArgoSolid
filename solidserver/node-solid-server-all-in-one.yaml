@@ -54,7 +54,7 @@ metadata:
     kompose.cmd: kompose convert
     kompose.version: 1.26.1 (HEAD)
   creationTimestamp: null
-  name: server
+  name: service-solidserver
   namespace: solidserver
 spec:
   ports:
