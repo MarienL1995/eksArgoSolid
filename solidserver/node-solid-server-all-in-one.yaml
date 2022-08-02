@@ -151,9 +151,6 @@ spec:
   containers:
   - name: nginx
     image: nginx
-    volumeMounts:
-    - name: shared-data
-      mountPath: /usr/share/nginx/html
   hostNetwork: true
   dnsPolicy: Default
 
