@@ -80,7 +80,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - ordinasolid.cloud
+    - www.ordinasolid.cloud
     secretName: solidserver-tls
   ingressClassName: alb
   rules:
