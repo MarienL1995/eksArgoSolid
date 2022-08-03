@@ -40,7 +40,7 @@ spec:
           
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           resources: {}
           
 status: {}
@@ -60,7 +60,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 3000
       protocol: TCP
   type: NodePort    
   selector:
