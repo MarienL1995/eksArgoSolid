@@ -23,7 +23,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: solidserver-deployment
   strategy:
-    type: Replace
+    type: Recreate
   template:
     metadata:
       annotations:
