@@ -59,7 +59,7 @@ metadata:
   namespace: solidserver
 spec:
   ports:
-    - port: 80
+    - port: 8443
       targetPort: 8443
       protocol: TCP
   type: NodePort    
@@ -94,7 +94,7 @@ spec:
             service:
               name: service-solidserver
               port:
-                number: 80
+                number: 8443
 
 ---
 
