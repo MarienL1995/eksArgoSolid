@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: Always
           args: 
             - "-l"
-            - "{{ .Values.logLevel}}"
+            - "debug"
             - "-b"
             - "http://k8s-solidser-ingresss-2471e2d536-822943591.eu-west-1.elb.amazonaws.com"
             - "-t"
