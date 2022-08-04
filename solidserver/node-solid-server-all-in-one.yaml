@@ -38,7 +38,7 @@ spec:
         - image: nodesolidserver/node-solid-server:latest
           name: solidserver-deployment
           args:
-          - solid --init
+          - solid init
           - solid start
           imagePullPolicy: Always
           ports:
