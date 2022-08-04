@@ -39,10 +39,8 @@ spec:
           name: solidserver-deployment
           imagePullPolicy: Always
           args: 
-            - "-l"
-            - "debug"
             - "-b"
-            - "http://k8s-solidser-ingresss-2471e2d536-594091591.eu-west-1.elb.amazonaws.com"
+            - "www.ordinasolid.cloud"
             - "-t"
           ports:
             - containerPort: 3000
