@@ -35,14 +35,11 @@ spec:
 
     spec:
       containers:
-        - image: nodesolidserver/node-solid-server:latest
+        - image: solidproject/community-server:latest
           name: solidserver-deployment
-          args:
-          - solid init
-          - solid start
           imagePullPolicy: Always
           ports:
-            - containerPort: 8443
+            - containerPort: 3000
           resources: {}
           
 status: {}
@@ -62,7 +59,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 8443
+      targetPort: 3000
       protocol: TCP
   type: NodePort    
   selector:
