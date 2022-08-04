@@ -41,7 +41,8 @@ spec:
           env :
           - name: CSS_BASE_URL
             value: "http://k8s-solidser-ingresss-2471e2d536-822943591.eu-west-1.elb.amazonaws.com"
-          
+          - name: CSS_PORT
+            value: 8000
           ports:
             - containerPort: 3000
           resources: {}
