@@ -1,0 +1,35 @@
+apiVersion: v2
+name: community-solid-server
+description: The Community Solid Server is open software that provides you with a Solid Pod and identity. This Pod acts as your own personal storage space so you can share data with people and Solid applications.
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 2.0.2
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "4.0.1"
+
+home: https://github.com/idlab-gent/css-helm-chart
+icon: https://raw.githubusercontent.com/solid/community-server/main/templates/images/solid.svg
+keywords:
+  - solid
+  - pod
+maintainers:
+  - email: jasper.vaneessen@ugent.be
+    name: jveessen
+sources:
+  - https://github.com/solid/community-server
