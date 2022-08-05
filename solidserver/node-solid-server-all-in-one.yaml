@@ -43,6 +43,7 @@ spec:
             - "http://www.ordinasolid.cloud"
             - "-t"
             - "-l"
+            - "debug"
           ports:
             - containerPort: 3000
           resources: {}
