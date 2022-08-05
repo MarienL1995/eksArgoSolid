@@ -42,6 +42,7 @@ spec:
             - "-b"
             - "http://www.ordinasolid.cloud"
             - "-t"
+            - "-l"
           ports:
             - containerPort: 3000
           resources: {}
