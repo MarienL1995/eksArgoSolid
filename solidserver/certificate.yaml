@@ -5,7 +5,7 @@ metadata:
   namespace: solidserver
 spec:
   dnsNames:
-    - http://www.ordinasolid.cloud
+    - ordinasolid.cloud
   secretName: example-app-tls
   issuerRef:
     name: letsencrypt-cluster-issuer
