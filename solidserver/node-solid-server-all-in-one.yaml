@@ -156,7 +156,7 @@ spec:
   tls:
   - hosts:
     - filemanager.ordinasolid.cloud
-    secretName: solidserver-tls
+    secretName: example-app-tls
   ingressClassName: alb
   rules:
     - http:
