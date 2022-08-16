@@ -52,6 +52,34 @@ status: {}
 
 ---
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solid-file-manager
+  namespace: solidserver
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: solid-file-manager
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: solid-file-manager
+    spec:
+      containers:
+        - image: maaktdeesuit123/css-filemanager:latest
+          name: solid-file-manager
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          resources: {}
+status: {}                        
+
+---
+
 
 apiVersion: v1
 kind: Service
@@ -71,6 +99,22 @@ spec:
   selector:
     app.kubernetes.io/name: solidserver-deployment
 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: solid-file-manager-service
+  namespace: solidserver
+spec: 
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: solid-file-manager      
 
 ---
 
@@ -98,6 +142,32 @@ spec:
               name: service-solidserver
               port:
                 number: 3000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: solidserver
+  name: ingress-solid-file-manager
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  tls:
+  - hosts:
+    - filemanager.ordinasolid.cloud
+    secretName: solidserver-tls
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: solid-file-manager-service
+              port:
+                number: 8000
 
 ---
 
